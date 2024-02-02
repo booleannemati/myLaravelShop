@@ -13,8 +13,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
+Route::get('/admin-panel/dashboard', function () {
+    return view('admin.dashboard');
+})->name('dashboard');
 
-    return view('welcome');
+Route::prefix('admin-panel/management')->name('admin.')->group(function(){
 
+    Route::resource('brands', BrandController::class);
 });

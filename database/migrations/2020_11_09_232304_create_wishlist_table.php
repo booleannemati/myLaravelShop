@@ -15,10 +15,10 @@ class CreateWishlistTable extends Migration
     {
         Schema::create('wishlist', function (Blueprint $table) {
 
-            $table->foreignId('user_id')->nullable();
+            $table->foreignId('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 
-            $table->foreignId('product_id')->nullable();
+            $table->foreignId('product_id');
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
 
             $table->primary(['user_id' , 'product_id']);
