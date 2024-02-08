@@ -3,20 +3,18 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Brand;
+use App\Models\Attrribute;
 use Illuminate\Http\Request;
-use RealRashid\SweetAlert\Facades\Alert;
 
-
-class BrandController extends Controller
+class AttributeController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $brands = Brand::latest()->paginate(20);
-        return view('admin.brands.index',compact('brands'));
+        $attributes = Attrribute::latest()->paginate(20);
+        return view('admin.attributes.index',compact('attributes'));
     }
 
     /**
@@ -24,7 +22,7 @@ class BrandController extends Controller
      */
     public function create()
     {
-        return view('admin.brands.create');
+        return view('admin.attributes.create');
     }
 
     /**
@@ -35,45 +33,43 @@ class BrandController extends Controller
         $request->validate([
             'name'=> 'required'
         ]);
-        Brand::create([
-           'name'=> $request->name,
-           'is_active'=> $request->is_active
+        Attrribute::create([
+            'name'=> $request->name,
         ]);
-        alert()->success('با تشکر','برند مورد نظر ایجاد شد.');
-        return redirect()->route('admin.brands.index');
+        alert()->success('با تشکر','ویژگی مورد نظر ایجاد شد.');
+        return redirect()->route('admin.attributes.index');
     }
-
 
     /**
      * Display the specified resource.
      */
-    public function show(Brand $brand)
+    public function show(Attrribute $attrribute)
     {
-        return view('admin.brands.show',compact('brand'));
+        return view('admin.attributes.show', compact('attrribute'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Brand $brand)
+    public function edit(Attrribute $attrribute)
     {
-        return view('admin.brands.edit',compact('brand'));
+        return view('admin.attributes.edit',compact('attrribute'));
+
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Brand $brand)
+    public function update(Request $request, Attrribute $attrribute)
     {
         $request->validate([
             'name'=> 'required'
         ]);
-        $brand->update([
+        $attrribute->update([
             'name'=> $request->name,
-            'is_active'=> $request->is_active
         ]);
-        alert()->success('با تشکر','برند مورد نظر بروزرسانی شد.');
-        return redirect()->route('admin.brands.index');
+        alert()->success('با تشکر','ویژگی مورد نظر بروزرسانی شد.');
+        return redirect()->route('admin.attributes.index');
     }
 
     /**
@@ -83,5 +79,4 @@ class BrandController extends Controller
     {
         //
     }
-
 }
