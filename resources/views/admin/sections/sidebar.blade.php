@@ -36,7 +36,7 @@
 
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseProducts" aria-expanded="true"
-            aria-controls="collapsePages">
+           aria-controls="collapsePages">
             <i class="fas fa-fw fa-cart-plus"></i>
             <span> محصولات </span>
         </a>
