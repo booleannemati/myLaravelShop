@@ -100,7 +100,7 @@ return [
     */
 
     'custom' => [
-        
+
     ],
 
     /*
@@ -156,6 +156,11 @@ return [
         'newpassword_confirmation' => 'تکرار رمز عبور جدید',
         'longitude'             => 'طول جغرافیایی',
         'latitude'              => 'عرض جغرافیایی',
+        'slug'                  => 'نام اینگلیسی',
+        'parent_id'             => 'والد',
+        'attribute_ids'         => 'ویزگی ها',
+        'attribute_is_filter_ids' => ' ویژگی های قابل فیلتر',
+        'variation_id'          => 'ویژگی متغیر',
     ],
 
 ];

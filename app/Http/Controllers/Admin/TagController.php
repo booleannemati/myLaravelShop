@@ -3,18 +3,18 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Attribute;
+use App\Models\Tag;
 use Illuminate\Http\Request;
 
-class AttributeController extends Controller
+class TagController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $attributes = Attribute::latest()->paginate(20);
-        return view('admin.attributes.index',compact('attributes'));
+        $tags = Tag::query()->latest()->paginate(20);
+        return view('admin.tags.index',compact('tags'));
     }
 
     /**
@@ -22,7 +22,8 @@ class AttributeController extends Controller
      */
     public function create()
     {
-        return view('admin.attributes.create');
+        return view('admin.tags.create');
+
     }
 
     /**
@@ -33,43 +34,43 @@ class AttributeController extends Controller
         $request->validate([
             'name'=> 'required'
         ]);
-        Attribute::query()->create([
+        Tag::create([
             'name'=> $request->name,
         ]);
-        alert()->success('با تشکر','ویژگی مورد نظر ایجاد شد.');
-        return redirect()->route('admin.attributes.index');
+        alert()->success('با تشکر','تگ مورد نظر ایجاد شد.');
+        return redirect()->route('admin.tags.index');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Attribute $attribute)
+    public function show(Tag $tag)
     {
-        return view('admin.attributes.show', compact('attribute'));
+        return view('admin.tags.show', compact('tag'));
+
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Attribute $attribute)
+    public function edit(Tag $tag)
     {
-        return view('admin.attributes.edit',compact('attribute'));
-
+        return view('admin.tags.edit',compact('tag'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Attribute $attrribute)
+    public function update(Request $request, Tag $tag)
     {
         $request->validate([
             'name'=> 'required'
         ]);
-        $attrribute->update([
+        $tag->update([
             'name'=> $request->name,
         ]);
-        alert()->success('با تشکر','ویژگی مورد نظر بروزرسانی شد.');
-        return redirect()->route('admin.attributes.index');
+        alert()->success('با تشکر','تگ مورد نظر بروزرسانی شد.');
+        return redirect()->route('admin.tags.index');
     }
 
     /**
