@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CategoryRequest;
 use App\Models\Attribute;
 use App\Models\Category;
 use Illuminate\Http\Request;
@@ -96,34 +97,26 @@ class CategoryController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Category $category)
+    public function update(CategoryRequest $request, Category $category)
     {
-        $fields = $request->validate([
-            'name' => 'required',
-            'slug' => 'required|unique:categories,slug,'.$category->id,
-            'parent_id' => 'required',
-            'attribute_ids' => 'required',
-            'attribute_is_filter_ids' => 'required',
-            'variation_id' => 'required'
-        ]);
         try {
             DB::beginTransaction();
 
             $category->update([
-                'name' =>  $fields['name'],
-                'parent_id' =>  $fields['parent_id'],
-                'slug' =>  $fields['slug'],
+                'name' =>  $request->name,
+                'parent_id' =>  $request->parent_id,
+                'slug' =>  $request->slug,
                 'description' =>  $request->description,
                 'is_active' =>  $request->is_active,
                 'icon' =>  $request->icon,
             ]);
 
             $category->attributes()->detach();
-            foreach ($fields['attribute_ids'] as $attribute_id) {
+            foreach ($request->attribute_ids as $attribute_id) {
                 $attribute = Attribute::query()->findOrFail($attribute_id);
                 $category->attributes()->attach($attribute,[
-                    'is_filter' => in_array($attribute_id, $fields['attribute_is_filter_ids'], true)? 1 :0,
-                    'is_variation' => $attribute_id === $fields['variation_id'] ? 1 : 0
+                    'is_filter' => in_array($attribute_id, $request->attribute_is_filter_ids, true)? 1 :0,
+                    'is_variation' => $attribute_id === $request->variation_id ? 1 : 0
                 ]);
             }
 
@@ -143,5 +136,12 @@ class CategoryController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function getCategoryAttributes(Category $category){
+
+        $attributes = $category->attributes()->wherePivot('is_variation' ,0)->get();
+        $variation = $category->attributes()->wherePivot('is_variation' ,1)->first();
+        return ['attriubtes' => $attributes , 'variation' => $variation];
     }
 }
