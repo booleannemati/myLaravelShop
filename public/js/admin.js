@@ -59818,18 +59818,17 @@ __webpack_require__(/*! md.bootstrappersiandatetimepicker/dist/jquery.md.bootstr
     }
   }); // Close any open menu accordions when window is resized below 768px
 
-  $(window).resize(function () {
-    if ($(window).width() < 768) {
-      $(".sidebar .collapse").collapse("hide");
-    } // Toggle the side navigation when window is resized below 480px
+  if ($(window).width() < 768) {
+    $(".sidebar .collapse").collapse("hide");
+  } // Toggle the side navigation when window is resized below 480px
 
 
-    if ($(window).width() < 480 && !$(".sidebar").hasClass("toggled")) {
-      $("body").addClass("sidebar-toggled");
-      $(".sidebar").addClass("toggled");
-      $(".sidebar .collapse").collapse("hide");
-    }
-  }); // Prevent the content wrapper from scrolling when the fixed side navigation hovered over
+  if ($(window).width() < 480 && !$(".sidebar").hasClass("toggled")) {
+    $("body").addClass("sidebar-toggled");
+    $(".sidebar").addClass("toggled");
+    $(".sidebar .collapse").collapse("hide");
+  } // Prevent the content wrapper from scrolling when the fixed side navigation hovered over
+
 
   $("body.fixed-nav .sidebar").on("mousewheel DOMMouseScroll wheel", function (e) {
     if ($(window).width() > 768) {
@@ -60045,15 +60044,27 @@ MIT License, https://github.com/cozeit/czMore/blob/master/LICENSE.md
 
 /***/ }),
 
+/***/ "./resources/scss/home/home.scss":
+/*!***************************************!*\
+  !*** ./resources/scss/home/home.scss ***!
+  \***************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+
 /***/ 0:
-/*!*****************************************************************************!*\
-  !*** multi ./resources/js/admin/admin.js ./resources/scss/admin/admin.scss ***!
-  \*****************************************************************************/
+/*!*************************************************************************************************************!*\
+  !*** multi ./resources/js/admin/admin.js ./resources/scss/admin/admin.scss ./resources/scss/home/home.scss ***!
+  \*************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(/*! C:\Users\webprog\Desktop\laravel_eCommerce\resources\js\admin\admin.js */"./resources/js/admin/admin.js");
-module.exports = __webpack_require__(/*! C:\Users\webprog\Desktop\laravel_eCommerce\resources\scss\admin\admin.scss */"./resources/scss/admin/admin.scss");
+__webpack_require__(/*! C:\Users\webprog\Desktop\laravel_eCommerce\resources\scss\admin\admin.scss */"./resources/scss/admin/admin.scss");
+module.exports = __webpack_require__(/*! C:\Users\webprog\Desktop\laravel_eCommerce\resources\scss\home\home.scss */"./resources/scss/home/home.scss");
 
 
 /***/ })
