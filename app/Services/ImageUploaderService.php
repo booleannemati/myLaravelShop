@@ -21,21 +21,22 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class ImageUploaderService
 {
-    public function upload(UploadedFile $image , array $images, $customDirectory = '', $disk = 'public'): array
+    public function upload($primaryImage, $images)
     {
-        try {
-            $imageDirectory = Storage::disk($disk)->putFile($customDirectory, $image);
+        $fileNamePrimaryImage = generateFileName($primaryImage->getClientOriginalName());
 
-            foreach ($images as $img) {
-                $name = Storage::disk($disk)->putFile($customDirectory, $img);
-                $secondaryImagesName[] = $name;
-            }
+        $primaryImage->move(public_path(env('PRODUCT_IMAGES_UPLOADER_PATH')), $fileNamePrimaryImage);
 
-            return ['primary_image'=> $imageDirectory,'images' => $secondaryImagesName];
+        $fileNameImages = [];
+        foreach ($images as $image) {
+            $fileNameImage = generateFileName($image->getClientOriginalName());
 
-        } catch (\Exception $e) {
-            throw  new RuntimeException($e->getMessage());
+            $image->move(public_path(env('PRODUCT_IMAGES_UPLOADER_PATH')), $fileNameImage);
+
+            array_push($fileNameImages ,  $fileNameImage );
         }
+
+        return [ 'fileNamePrimaryImage' => $fileNamePrimaryImage , 'fileNameImages' => $fileNameImages];
     }
 
     public static function getInstance(): self
